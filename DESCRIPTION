@@ -19,6 +19,11 @@ Suggests:
     rmarkdown
 VignetteBuilder: knitr
 Imports: 
-    magrittr
+    tibble,
+    magrittr,
+    dplyr,
+    ggplot2,
+    plotly,
+    readr
 Depends: 
     R (>= 2.10)

@@ -1,0 +1,50 @@
+---
+title: "An_Interactive_Map"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{An_Interactive_Map}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+devtools::load_all()
+library(plotly)
+library(ggplot2)
+```
+
+```{r}
+dat <-
+  tibble::tibble(Age = seq(0, 10, 0.1)) %>%
+  dplyr::mutate(TL = qvb2::qvb(Age, p = list(400, 0.8, 1.21, 2.3, 0)))
+
+plot_ly(dat,
+        x = ~ Age,
+        y = ~ TL, type = "scatter", mode = "line")
+  
+```
+
+```{r, fig.height = 5, fig.width = 6}
+ggplotly(
+  ggplot(catch%>%
+           dplyr::group_by(Year, Region) %>%
+           dplyr::summarise(Sum_Catch = sum(Catch_ton, na.rm = T))
+         ) + geom_col(aes(Year, Sum_Catch, fill = Region))
+)
+```
+
+```{r, fig.height = 5, fig.width = 6}
+ggplotly(
+  ggplot(catch%>%
+           dplyr::group_by(Year, Gear) %>%
+           dplyr::summarise(Sum_Catch = sum(Catch_ton, na.rm = T))
+         ) + geom_col(aes(Year, Sum_Catch, fill = Gear))
+)
+```
